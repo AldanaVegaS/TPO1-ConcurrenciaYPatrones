@@ -5,7 +5,7 @@ public class Mapa {
     private final int filas;
     private final int columnas;
     
-    public Mapa(int[][] mapa, int filas, int columnas){
+    Mapa(int[][] mapa, int filas, int columnas){
         this.filas=filas;
         this.columnas=columnas;
         this.mapa=mapa;

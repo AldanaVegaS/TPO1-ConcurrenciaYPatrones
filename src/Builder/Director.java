@@ -1,6 +1,6 @@
 package Builder;
 
-public class Nivel {
+public class Director {
     public void nivelFacil(Builder builder){
         builder.setTamaño(5,5);
         builder.setTesoro(1);
