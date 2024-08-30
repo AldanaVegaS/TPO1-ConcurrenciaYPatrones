@@ -86,7 +86,7 @@ public class Mapa {
 			}
 		}
 
-		public Mapa getResultado() {
+		public Mapa build() {
 	        return new Mapa(mapa, filas, columnas);
 	    }
 
