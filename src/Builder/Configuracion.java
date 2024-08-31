@@ -1,6 +1,6 @@
 package Builder;
 
-public class Director {
+public class Configuracion {
     public void nivelFacil(Builder builder){
         builder.setTamaño(5,5);
         builder.setTesoro(1);
@@ -22,5 +22,19 @@ public class Director {
         builder.setVillano();
         builder.setPozos(2);
         builder.setZonaContaminada(5);
+    }
+
+    public Mapa(Builder builder, Nivel dificultad){
+        switch(dificultad){
+            case FACIL: this.nivelFacil(builder);
+                break;
+            case MEDIO: this.niveMedio(builder);
+                break;
+            case DIFICIL: this.nivelDificil(builder);
+                break;
+            default:
+                break;
+        }
+        return builder.build();
     }
 }

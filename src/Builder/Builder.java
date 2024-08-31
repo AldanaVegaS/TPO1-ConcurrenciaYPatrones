@@ -8,4 +8,5 @@ public interface Builder {
     void setPozos(int cant);
     void setTesoro(int cant);
     void setObstaculos(int cant);
+    Mapa build();
 }
