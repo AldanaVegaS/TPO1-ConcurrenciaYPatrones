@@ -15,8 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Builder.Configuracion;
 import Builder.Mapa;
-import Builder.Mapa.MapaBuilder;
+import Builder.MapaBuilder;
+import Builder.Nivel;
 
 import java.awt.Graphics;
 
@@ -78,17 +80,17 @@ public class Juego extends JFrame {
 	}
 
 	public void iniciarJuego() {
+		
+		Configuracion config = new Configuracion();
+		MapaBuilder mapaBuilder = new MapaBuilder();
+		Mapa mapa = config.configurarjuego(mapaBuilder, nivelDificultad);
+		Personaje personaje = new Personaje(mapa);		
 
-		//##########falta esta parte y lo del Schedule########
-
-
-		//Configuracion config = new Configuracion(nivelDificultad);
-		//Mapa mapa = config.configurarjuego();
-		//Personaje personaje = new Personaje(mapa);
 		x = 0;
 		y = 0;
 		gameOver = false;
 		tesoroEncontrado = false;
+
 		Runnable task = () -> {
 			this.repaint();
 		};

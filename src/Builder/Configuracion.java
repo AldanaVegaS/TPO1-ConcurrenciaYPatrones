@@ -1,7 +1,4 @@
-package entidades;
-
-import Builder.Builder;
-import Builder.Mapa;
+package Builder;
 
 public class Configuracion {
 
@@ -31,21 +28,21 @@ public class Configuracion {
         builder.setZonaContaminada(5);
     }
 
-    public static Mapa configurarjuego(Builder builder, Nivel dificultad) {
+    public Mapa configurarjuego(MapaBuilder builder, Nivel dificultad) {
+        
         switch (dificultad) {
             case FACIL:
-                
+                this.nivelFacil(builder);
                 break;
             case MEDIO:
-
+            this.nivelMedio(builder);
                 break;
             case DIFICIL:
-
+            this.nivelDificil(builder);
                 break;
-
             default:
                 break;
         }
-        return mapa;
+        return builder.build();
     }
 }
