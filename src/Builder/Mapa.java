@@ -11,17 +11,17 @@ public class Mapa {
         this.mapa=mapa;
     }
 
-    public int[][] getMapa(){
-        return mapa;
-    }
+	public int[][] getMapa() {
+		return mapa;
+	}
 
-    public int getFilas() {
-        return filas;
-    }
+	public int getFilas() {
+		return filas;
+	}
 
-    public int getColumnas() {
-        return columnas;
-    }
+	public int getColumnas() {
+		return columnas;
+	}
 
     public void mostrarMapa(){
         for(int i=0;i<filas;i++){

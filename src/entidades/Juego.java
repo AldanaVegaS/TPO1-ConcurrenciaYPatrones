@@ -16,8 +16,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Builder.Configuracion;
 import Builder.Mapa;
 import Builder.MapaBuilder;
+import Builder.Nivel;
 
 import java.awt.Graphics;
 
@@ -95,6 +97,7 @@ public class Juego extends JFrame {
 		y = 0;
 		gameOver = false;
 		tesoroEncontrado = false;
+
 		Runnable task = () -> {
 			this.repaint();
 		};
