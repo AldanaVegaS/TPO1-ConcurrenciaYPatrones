@@ -1,13 +1,15 @@
 package Builder;
 
+import entidades.Nivel;
+
 public class Configuracion {
-    public void nivelFacil(Builder builder){
+    private void nivelFacil(Builder builder){
         builder.setTamaño(5,5);
         builder.setTesoro(1);
         builder.setObstaculos(5);
     }
 
-    public void nivelMedio(Builder builder){
+    private void nivelMedio(Builder builder){
         builder.setTamaño(10,10);
         builder.setTesoro(1);
         builder.setObstaculos(5);
@@ -24,11 +26,11 @@ public class Configuracion {
         builder.setZonaContaminada(5);
     }
 
-    public Mapa(Builder builder, Nivel dificultad){
+    public Mapa configurarJuego(Builder builder, Nivel dificultad){
         switch(dificultad){
             case FACIL: this.nivelFacil(builder);
                 break;
-            case MEDIO: this.niveMedio(builder);
+            case MEDIO: this.nivelMedio(builder);
                 break;
             case DIFICIL: this.nivelDificil(builder);
                 break;
