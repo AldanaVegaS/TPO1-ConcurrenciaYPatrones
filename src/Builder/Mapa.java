@@ -1,7 +1,5 @@
 package Builder;
 
-import java.util.Random;
-
 public class Mapa {
     private final int[][] mapa;
     private final int filas;

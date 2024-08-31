@@ -1,5 +1,6 @@
 package entidades;
 
+import Builder.Configuracion;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Builder.Mapa;
+import Builder.MapaBuilder;
 
 import java.awt.Graphics;
 
@@ -40,6 +42,10 @@ public class Juego extends JFrame {
 		this.mapa = mapa.getMapa();
 		this.numeroFilas = mapa.getFilas();
 		this.numeroColumnas = mapa.getColumnas();
+		this.inicializarMenu();
+	}
+
+	public Juego() {
 		this.inicializarMenu();
 	}
 
@@ -81,9 +87,10 @@ public class Juego extends JFrame {
 		//##########falta esta parte y lo del Schedule########
 
 
-		//Configuracion config = new Configuracion(nivelDificultad);
-		//Mapa mapa = config.configurarjuego();
-		//Personaje personaje = new Personaje(mapa);
+		Configuracion config = new Configuracion();
+		MapaBuilder mapaBuilder = new MapaBuilder();
+		Mapa mapa = config.configurarJuego(mapaBuilder,nivelDificultad);
+		Personaje personaje = new Personaje(mapa);
 		x = 0;
 		y = 0;
 		gameOver = false;
