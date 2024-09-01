@@ -4,15 +4,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import Builder.MapaBuilder;
-import Builder.Configuracion;
-import Builder.Mapa;
-import Builder.Nivel;
 
 //import java.awt.BorderLayout;
 
@@ -40,6 +33,8 @@ public class Test {
                         JOptionPane.showMessageDialog(null, "Perdiste :(", "GameOver", JOptionPane.INFORMATION_MESSAGE);
     
                     }
+                    executor.shutdown();
+                    
                 }
             }
         }, 1, 10, TimeUnit.MILLISECONDS);

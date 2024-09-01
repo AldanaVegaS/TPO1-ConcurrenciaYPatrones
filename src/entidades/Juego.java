@@ -49,17 +49,18 @@ public class Juego extends JPanel {
 				switch (e.getKeyCode()) {
 					case 37: // izquierda
 						if ((x - 1 >= 0) && verificarPosicion(x - 1, y)) {
-							x = x - 1;
+							x -= 1;
 						}
+						
 						break;
 					case 39: // derecha
-						if ((x + 1 <= numeroColumnas) && verificarPosicion(x + 1, y)) {
+						if ((x + 1 <= numeroColumnas-1) && verificarPosicion(x + 1, y)) {
 							
 							x = x + 1;
 						}
 						break;
 					case 40: // abajo
-						if ((y + 1 <= numeroFilas) && verificarPosicion(x, y + 1)) {
+						if ((y + 1 <= numeroFilas-1) && verificarPosicion(x, y + 1)) {
 							System.out.println(verificarPosicion(x, y + 1));
 							y = y + 1;
 						}
@@ -72,12 +73,7 @@ public class Juego extends JPanel {
 					default:
 						break;
 				}
-				for (int i = 0; i < numeroFilas; i++) {
-					for (int j = 0; j < numeroColumnas; j++) {
-						System.out.print(matrizMapa[i][j] + " ");
-					}
-					System.out.println();
-				}
+				
 				personaje.cambiarPosición(x, y);
 			}
 
@@ -181,15 +177,22 @@ public class Juego extends JPanel {
 		return tesoroEncontrado;
 	}
 
-	private boolean verificarPosicion(int x, int y) {
+	private boolean verificarPosicion(int y, int x) {
 		// 1 = Villano -> no pueden ocupar la misma posicion. Le resta -1 de vida
 		// 2 = Zona contaminada
 		// 3 = Pozo
 		// 4 = Tesoro
 		// 5 = Obstaculo, no deja pasar al personaje por esa celda, no resta puntos de
 		// vida
+		System.out.println("X: "+x+"Y:"+y);
 		boolean permitido = true;
 		int aux = matrizMapa[x][y];
+		System.out.println("verificando   "+matrizMapa[x][y]);
+		for (int i = 0; i < numeroFilas; i++) {
+			for (int j = 0; j < numeroColumnas; j++) {
+			}
+			System.out.println();
+		}
 		switch (aux) {
 			case 0:
 				if (personaje.enZonaContaminada()) {
@@ -216,6 +219,7 @@ public class Juego extends JPanel {
 				if (!personaje.tieneVida()) {
 					gameOver = true;
 				}
+				personaje.repaint();
 				break;
 			case 4:
 				tesoroEncontrado = true;
