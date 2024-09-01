@@ -16,14 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Builder.Configuracion;
 import Builder.Mapa;
 import Builder.MapaBuilder;
 import Builder.Nivel;
 
 import java.awt.Graphics;
 
-public class Juego extends JFrame {
+public class Juego extends JFrame implements ActionListener{
 	private int[][] mapa;
 	private int fila = 0;
 	private int columna = 0;
@@ -44,64 +43,96 @@ public class Juego extends JFrame {
 		this.mapa = mapa.getMapa();
 		this.numeroFilas = mapa.getFilas();
 		this.numeroColumnas = mapa.getColumnas();
-		this.inicializarMenu();
+		//this.inicializarMenu();
 	}
 
 	public Juego() {
-		this.inicializarMenu();
+		
+		
+		
 	}
 
-	private void inicializarMenu() {
+	public void inicializarMenu() {
 		panelMenu = new JPanel();
 		panelMenu.setLayout(new GridLayout(3, 1));
 		panelMenu.setPreferredSize(new Dimension(100, 150));
+
 		bFacil = new JButton("Facil");
+		bFacil.addActionListener(this);
 		bMedio = new JButton("Medio");
+		bMedio.addActionListener(this);
 		bDificil = new JButton("Dificil");
-		bFacil.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.FACIL;
-				iniciarJuego();
-			}
-		});
-		bMedio.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.MEDIO;
-				iniciarJuego();
-			}
-		});
-		bDificil.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.DIFICIL;
-				iniciarJuego();
-			}
-		});
+		bDificil.addActionListener(this);
+		// bFacil.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent e) {
+		// 		nivelDificultad = Nivel.FACIL;
+		// 		iniciarJuego();
+		// 	}
+		// });
+		// bMedio.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent e) {
+		// 		nivelDificultad = Nivel.MEDIO;
+		// 		iniciarJuego();
+		// 	}
+		// });
+		// bDificil.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent e) {
+		// 		nivelDificultad = Nivel.DIFICIL;
+		// 		iniciarJuego();
+		// 	}
+		// });
 		panelMenu.add(bFacil);
 		panelMenu.add(bMedio);
 		panelMenu.add(bDificil);
+		add(panelMenu);
 	}
 
-	public void iniciarJuego() {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bFacil) {
+            System.out.println("Has seleccionado el nivel Fácil");
+			nivelDificultad = Nivel.FACIL;
+			iniciarJuego();
+            // Aquí puedes agregar el código para iniciar el juego en modo fácil
+        } else if (e.getSource() == bMedio) {
+            System.out.println("Has seleccionado el nivel Medio");
+			nivelDificultad = Nivel.MEDIO;
+			iniciarJuego();
+            // Aquí puedes agregar el código para iniciar el juego en modo medio
+        } else if (e.getSource() == bDificil) {
+            System.out.println("Has seleccionado el nivel Difícil");
+			nivelDificultad = Nivel.DIFICIL;
+			iniciarJuego();
+            // Aquí puedes agregar el código para iniciar el juego en modo difícil
+        }
+    }
+
+
+	public void iniciarJuego(){
 
 		//##########falta esta parte y lo del Schedule########
-
+		System.out.println("Inicia juego, muestra el mapa");
 
 		Configuracion config = new Configuracion();
 		MapaBuilder mapaBuilder = new MapaBuilder();
 		Mapa mapa = config.configurarJuego(mapaBuilder,nivelDificultad);
+
+		setSize(mapa.getFilas()*45,mapa.getColumnas()*45);
+		//setSize(600,600);
+		this.mapa=mapa.getMapa();
 		Personaje personaje = new Personaje(mapa);
 		x = 0;
 		y = 0;
 		gameOver = false;
 		tesoroEncontrado = false;
 
-		Runnable task = () -> {
-			this.repaint();
-		};
-		ScheduledExecutorService executor;
+		// Runnable task = () -> {
+		// 	this.repaint();
+		// };
+		// ScheduledExecutorService executor;
+		
 	}
 
 	public void paint(Graphics grafico) {

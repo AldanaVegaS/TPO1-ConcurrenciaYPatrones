@@ -1,6 +1,5 @@
 package Builder;
 
-import entidades.Nivel;
 
 public class Configuracion {
     private void nivelFacil(Builder builder){
@@ -18,7 +17,7 @@ public class Configuracion {
     }
 
     public void nivelDificil(Builder builder){
-        builder.setTamaño(20,20);
+        builder.setTamaño(15,15);
         builder.setTesoro(1);
         builder.setObstaculos(5);
         builder.setVillano();

@@ -1,9 +1,14 @@
 package Builder;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Mapa {
     private final int[][] mapa;
     private final int filas;
     private final int columnas;
+    private final int anchoBloque = 40;
+    private final int altoBloque = 40;
     
     Mapa(int[][] mapa, int filas, int columnas){
         this.filas=filas;
