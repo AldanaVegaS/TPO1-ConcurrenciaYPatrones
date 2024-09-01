@@ -22,7 +22,7 @@ import Builder.Nivel;
 
 import java.awt.Graphics;
 
-public class Juego extends JFrame implements ActionListener{
+public class Juego extends JPanel implements ActionListener {
 	private int[][] mapa;
 	private int fila = 0;
 	private int columna = 0;
@@ -38,21 +38,21 @@ public class Juego extends JFrame implements ActionListener{
 	// atributos menu
 	private JPanel panelMenu;
 	private JButton bFacil, bMedio, bDificil;
+	private JFrame ventana;
 
 	public Juego(Mapa mapa) {
 		this.mapa = mapa.getMapa();
 		this.numeroFilas = mapa.getFilas();
 		this.numeroColumnas = mapa.getColumnas();
-		//this.inicializarMenu();
+		this.personaje = new Personaje(mapa);
+		System.out.println(getName());
 	}
 
 	public Juego() {
-		
-		
-		
 	}
 
-	public void inicializarMenu() {
+	public void inicializarMenu(JFrame vent) {
+		this.ventana = vent;
 		panelMenu = new JPanel();
 		panelMenu.setLayout(new GridLayout(3, 1));
 		panelMenu.setPreferredSize(new Dimension(100, 150));
@@ -64,75 +64,82 @@ public class Juego extends JFrame implements ActionListener{
 		bDificil = new JButton("Dificil");
 		bDificil.addActionListener(this);
 		// bFacil.addActionListener(new ActionListener() {
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e) {
-		// 		nivelDificultad = Nivel.FACIL;
-		// 		iniciarJuego();
-		// 	}
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.FACIL;
+		// iniciarJuego();
+		// }
 		// });
 		// bMedio.addActionListener(new ActionListener() {
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e) {
-		// 		nivelDificultad = Nivel.MEDIO;
-		// 		iniciarJuego();
-		// 	}
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.MEDIO;
+		// iniciarJuego();
+		// }
 		// });
 		// bDificil.addActionListener(new ActionListener() {
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e) {
-		// 		nivelDificultad = Nivel.DIFICIL;
-		// 		iniciarJuego();
-		// 	}
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.DIFICIL;
+		// iniciarJuego();
+		// }
 		// });
 		panelMenu.add(bFacil);
 		panelMenu.add(bMedio);
 		panelMenu.add(bDificil);
-		add(panelMenu);
+		ventana.add(panelMenu);
 	}
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == bFacil) {
-            System.out.println("Has seleccionado el nivel Fácil");
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == bFacil) {
+			System.out.println("Has seleccionado el nivel Fácil");
 			nivelDificultad = Nivel.FACIL;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
 			iniciarJuego();
-            // Aquí puedes agregar el código para iniciar el juego en modo fácil
-        } else if (e.getSource() == bMedio) {
-            System.out.println("Has seleccionado el nivel Medio");
+			// Aquí puedes agregar el código para iniciar el juego en modo fácil
+		} else if (e.getSource() == bMedio) {
+			System.out.println("Has seleccionado el nivel Medio");
 			nivelDificultad = Nivel.MEDIO;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
 			iniciarJuego();
-            // Aquí puedes agregar el código para iniciar el juego en modo medio
-        } else if (e.getSource() == bDificil) {
-            System.out.println("Has seleccionado el nivel Difícil");
+			// Aquí puedes agregar el código para iniciar el juego en modo medio
+		} else if (e.getSource() == bDificil) {
+			System.out.println("Has seleccionado el nivel Difícil");
 			nivelDificultad = Nivel.DIFICIL;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
 			iniciarJuego();
-            // Aquí puedes agregar el código para iniciar el juego en modo difícil
-        }
-    }
+			// Aquí puedes agregar el código para iniciar el juego en modo difícil
+		}
+	}
 
+	public void iniciarJuego() {
 
-	public void iniciarJuego(){
-
-		//##########falta esta parte y lo del Schedule########
+		// ##########falta esta parte y lo del Schedule########
 		System.out.println("Inicia juego, muestra el mapa");
-
 		Configuracion config = new Configuracion();
 		MapaBuilder mapaBuilder = new MapaBuilder();
-		Mapa mapa = config.configurarJuego(mapaBuilder,nivelDificultad);
+		Mapa mapa = config.configurarJuego(mapaBuilder, nivelDificultad);
 
-		setSize(mapa.getFilas()*45,mapa.getColumnas()*45);
-		//setSize(600,600);
-		this.mapa=mapa.getMapa();
-		Personaje personaje = new Personaje(mapa);
+		ventana.setSize(mapa.getFilas() * 45, mapa.getColumnas() * 45);
+		// setSize(600,600);
+		this.mapa = mapa.getMapa();
+		Juego game = new Juego(mapa);
+		ventana.add(game);
 		x = 0;
 		y = 0;
 		gameOver = false;
 		tesoroEncontrado = false;
 
-		// Runnable task = () -> {
-		// 	this.repaint();
-		// };
-		// ScheduledExecutorService executor;
-		
+		Runnable task = () -> {
+			game.repaint();
+		};
+
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+		executor.scheduleAtFixedRate(task, 0, 10, TimeUnit.MILLISECONDS);
+
 	}
 
 	public void paint(Graphics grafico) {
@@ -167,7 +174,8 @@ public class Juego extends JFrame implements ActionListener{
 				}
 			}
 		}
-
+		grafico.setColor(Color.pink);
+		grafico.fillOval(x, y, anchoBloque, altoBloque);
 	}
 
 	public void teclaPrecionada(KeyEvent evento) {
@@ -196,6 +204,7 @@ public class Juego extends JFrame implements ActionListener{
 			default:
 				break;
 		}
+
 	}
 
 	private boolean verificarPosicion(int x, int y) {
