@@ -74,14 +74,6 @@ public class Juego extends JPanel {
 				}
 
 				personaje.cambiarPosición(x, y);
-				matrizMapa[y][x] = 9;
-				System.out.println("Actualizacion:");
-				for (int i = 0; i < numeroFilas; i++) {
-					for (int j = 0; j < numeroColumnas; j++) {
-						System.out.print(matrizMapa[i][j] + " ");
-					}
-					System.out.println();
-				}
 			}
 
 			@Override
