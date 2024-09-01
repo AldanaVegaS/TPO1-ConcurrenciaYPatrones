@@ -38,7 +38,7 @@ public class Personaje extends JPanel {
     public void entrarZonaContaminada() {
         executor.scheduleAtFixedRate(() -> {
             zonaContaminada = true;
-            vida--;
+            restarVida();
             System.out.println("Vida restante:" + vida);
         }, 1, 1, TimeUnit.SECONDS);
     }
@@ -47,7 +47,7 @@ public class Personaje extends JPanel {
         System.out.println("Salir de la zona contaminada");
         zonaContaminada = false;
         executor.shutdown();
-        executor = null;
+        executor = Executors.newSingleThreadScheduledExecutor();
 
     }
 

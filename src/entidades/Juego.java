@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.OverlayLayout;
 
+import Builder.Configuracion;
 import Builder.Mapa;
 import Builder.MapaBuilder;
 import Builder.Nivel;
@@ -52,14 +53,14 @@ public class Juego extends JPanel {
 						}
 						break;
 					case 39: // derecha
-						if ((x + 1 <= numeroColumnas) && verificarPosicion(x + 1, y)) {
-							
+						if ((x + 1 <= numeroColumnas - 1) && verificarPosicion(x + 1, y)) {
+
 							x = x + 1;
 						}
 						break;
 					case 40: // abajo
-						if ((y + 1 <= numeroFilas) && verificarPosicion(x, y + 1)) {
-							System.out.println(verificarPosicion(x, y + 1));
+						if ((y + 1 <= numeroFilas - 1) && verificarPosicion(x, y + 1)) {
+							// System.out.println(verificarPosicion(x, y + 1));
 							y = y + 1;
 						}
 						break;
@@ -71,13 +72,16 @@ public class Juego extends JPanel {
 					default:
 						break;
 				}
+
+				personaje.cambiarPosición(x, y);
+				matrizMapa[y][x] = 9;
+				System.out.println("Actualizacion:");
 				for (int i = 0; i < numeroFilas; i++) {
 					for (int j = 0; j < numeroColumnas; j++) {
 						System.out.print(matrizMapa[i][j] + " ");
 					}
 					System.out.println();
 				}
-				personaje.cambiarPosición(x, y);
 			}
 
 			@Override
@@ -103,9 +107,7 @@ public class Juego extends JPanel {
 		panelMenu.setLayout(new GridLayout(3, 1));
 		panelMenu.setPreferredSize(new Dimension(300, 150));
 		bFacil = new JButton("Facil");
-		bFacil.addActionListener(this);
 		bMedio = new JButton("Medio");
-		bMedio.addActionListener(this);
 		bDificil = new JButton("Dificil");
 		bFacil.addActionListener(new ActionListener() {
 			@Override
@@ -168,17 +170,23 @@ public class Juego extends JPanel {
 
 		cardLayout.show(this, "Juego");
 		comenzo = true;
-
+		for (int i = 0; i < numeroFilas; i++) {
+			for (int j = 0; j < numeroColumnas; j++) {
+				System.out.print(matrizMapa[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
-	public boolean comenzo(){
+	public boolean comenzo() {
 		return comenzo;
 	}
 
-	public boolean termino(){
+	public boolean termino() {
 		return gameOver;
 	}
-	public boolean gano(){
+
+	public boolean gano() {
 		return tesoroEncontrado;
 	}
 
@@ -190,11 +198,15 @@ public class Juego extends JPanel {
 		// 5 = Obstaculo, no deja pasar al personaje por esa celda, no resta puntos de
 		// vida
 		boolean permitido = true;
-		int aux = matrizMapa[x][y];
+		int aux = matrizMapa[y][x];
 		switch (aux) {
 			case 0:
 				if (personaje.enZonaContaminada()) {
 					personaje.salirZonaContaminada();
+					barraVida.setValue(personaje.getVida());
+					if (!personaje.tieneVida()) {
+						gameOver = true;
+					}
 				}
 				break;
 			case 1:
@@ -209,6 +221,7 @@ public class Juego extends JPanel {
 			case 2:
 				if (!personaje.enZonaContaminada()) {
 					personaje.entrarZonaContaminada();
+
 				}
 				break;
 			case 3:
@@ -217,13 +230,15 @@ public class Juego extends JPanel {
 				if (!personaje.tieneVida()) {
 					gameOver = true;
 				}
+				this.x = 0;
+				this.y = 0;
 				break;
 			case 4:
 				tesoroEncontrado = true;
 				gameOver = true;
 				break;
 			case 5:
-			
+
 				permitido = false;
 				break;
 

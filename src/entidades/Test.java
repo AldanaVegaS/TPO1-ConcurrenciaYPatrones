@@ -4,18 +4,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import Builder.MapaBuilder;
-import Builder.Configuracion;
-import Builder.Mapa;
-import Builder.Nivel;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-
-//import java.awt.BorderLayout;
 
 public class Test {
 
@@ -33,14 +23,16 @@ public class Test {
             if (game.comenzo()) {
                 ventana.pack();
                 game.repaint();
-                if(game.termino()){
-                    if(game.gano()){
+                if (game.termino()) {
+                    if (game.gano()) {
 
-                        JOptionPane.showMessageDialog(null, "Felicidades, ganaste la partida!", "GameOver", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Felicidades, ganaste la partida!", "GameOver",
+                                JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "Perdiste :(", "GameOver", JOptionPane.INFORMATION_MESSAGE);
-    
+
                     }
+                    executor.shutdown();
                 }
             }
         }, 1, 10, TimeUnit.MILLISECONDS);

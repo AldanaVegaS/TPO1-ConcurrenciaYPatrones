@@ -1,5 +1,9 @@
 package Builder;
 
+public class Configuracion {
+
+    public Configuracion() {
+    }
 
     public void nivelFacil(Builder builder) {
         builder.setTamaño(10, 10);
@@ -15,8 +19,8 @@ package Builder;
         builder.setPozos(2);
     }
 
-    public void nivelDificil(Builder builder){
-        builder.setTamaño(15,15);
+    public void nivelDificil(Builder builder) {
+        builder.setTamaño(20, 20);
         builder.setTesoro(1);
         builder.setObstaculos(5);
         builder.setVillano();
@@ -24,13 +28,17 @@ package Builder;
         builder.setZonaContaminada(5);
     }
 
-    public Mapa configurarJuego(Builder builder, Nivel dificultad){
-        switch(dificultad){
-            case FACIL: this.nivelFacil(builder);
+    public Mapa configurarjuego(MapaBuilder builder, Nivel dificultad) {
+
+        switch (dificultad) {
+            case FACIL:
+                this.nivelFacil(builder);
                 break;
-            case MEDIO: this.nivelMedio(builder);
+            case MEDIO:
+                this.nivelMedio(builder);
                 break;
-            case DIFICIL: this.nivelDificil(builder);
+            case DIFICIL:
+                this.nivelDificil(builder);
                 break;
             default:
                 break;
