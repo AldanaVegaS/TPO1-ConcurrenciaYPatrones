@@ -18,6 +18,7 @@ import javax.swing.OverlayLayout;
 import Builder.Mapa;
 import Builder.MapaBuilder;
 import Builder.Nivel;
+import Builder.Configuracion;
 
 public class Juego extends JPanel {
 	private int[][] matrizMapa;
@@ -103,9 +104,9 @@ public class Juego extends JPanel {
 		panelMenu.setLayout(new GridLayout(3, 1));
 		panelMenu.setPreferredSize(new Dimension(300, 150));
 		bFacil = new JButton("Facil");
-		bFacil.addActionListener(this);
+		//bFacil.addActionListener(this);
 		bMedio = new JButton("Medio");
-		bMedio.addActionListener(this);
+		//bMedio.addActionListener(this);
 		bDificil = new JButton("Dificil");
 		bFacil.addActionListener(new ActionListener() {
 			@Override
@@ -138,7 +139,7 @@ public class Juego extends JPanel {
 
 		Configuracion config = new Configuracion();
 		MapaBuilder mapaBuilder = new MapaBuilder();
-		Mapa mapa = config.configurarjuego(mapaBuilder, nivelDificultad);
+		Mapa mapa = config.configurarJuego(mapaBuilder, nivelDificultad);
 
 		personaje = new Personaje();
 		matrizMapa = mapa.getMapa();
