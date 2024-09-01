@@ -20,8 +20,10 @@ import Builder.MapaBuilder;
 import Builder.Nivel;
 import Builder.Configuracion;
 
-public class Juego extends JPanel {
-	private int[][] matrizMapa;
+public class Juego extends JPanel implements ActionListener {
+	private int[][] mapa;
+	private int fila = 0;
+	private int columna = 0;
 	private int numeroFilas; // asignar con la fila del mapa
 	private int numeroColumnas; // asignar con la columna de la columna
 
@@ -36,6 +38,16 @@ public class Juego extends JPanel {
 	private CardLayout cardLayout;
 	private JPanel panelMenu;
 	private JProgressBar barraVida;
+	private JButton bFacil, bMedio, bDificil;
+	private JFrame ventana;
+
+	public Juego(Mapa mapa) {
+		this.mapa = mapa.getMapa();
+		this.numeroFilas = mapa.getFilas();
+		this.numeroColumnas = mapa.getColumnas();
+		this.personaje = new Personaje(mapa);
+		System.out.println(getName());
+	}
 
 	public Juego() {
 
@@ -90,6 +102,10 @@ public class Juego extends JPanel {
 		setFocusable(true);
 
 		this.comenzo = false;
+	}
+
+	public void inicializarMenu(JFrame vent) {
+		this.ventana = vent;
 		panelMenu = new JPanel();
 		cardLayout = new CardLayout();
 		barraVida = new JProgressBar(0, 10);
@@ -108,32 +124,60 @@ public class Juego extends JPanel {
 		bMedio = new JButton("Medio");
 		//bMedio.addActionListener(this);
 		bDificil = new JButton("Dificil");
-		bFacil.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.FACIL;
-				iniciarJuego();
-			}
-		});
-		bMedio.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.MEDIO;
-				iniciarJuego();
-			}
-		});
-		bDificil.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				nivelDificultad = Nivel.DIFICIL;
-				iniciarJuego();
-			}
-		});
-		panelMenu.add(bFacil, BorderLayout.NORTH);
-		panelMenu.add(bMedio, BorderLayout.CENTER);
-		panelMenu.add(bDificil, BorderLayout.SOUTH);
-		this.add(panelMenu, "Menu");
+		bDificil.addActionListener(this);
+		// bFacil.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.FACIL;
+		// iniciarJuego();
+		// }
+		// });
+		// bMedio.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.MEDIO;
+		// iniciarJuego();
+		// }
+		// });
+		// bDificil.addActionListener(new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// nivelDificultad = Nivel.DIFICIL;
+		// iniciarJuego();
+		// }
+		// });
+		panelMenu.add(bFacil);
+		panelMenu.add(bMedio);
+		panelMenu.add(bDificil);
+		ventana.add(panelMenu);
 	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == bFacil) {
+			System.out.println("Has seleccionado el nivel Fácil");
+			nivelDificultad = Nivel.FACIL;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
+			iniciarJuego();
+			// Aquí puedes agregar el código para iniciar el juego en modo fácil
+		} else if (e.getSource() == bMedio) {
+			System.out.println("Has seleccionado el nivel Medio");
+			nivelDificultad = Nivel.MEDIO;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
+			iniciarJuego();
+			// Aquí puedes agregar el código para iniciar el juego en modo medio
+		} else if (e.getSource() == bDificil) {
+			System.out.println("Has seleccionado el nivel Difícil");
+			nivelDificultad = Nivel.DIFICIL;
+			ventana.remove(panelMenu);
+			ventana.revalidate();
+			iniciarJuego();
+			// Aquí puedes agregar el código para iniciar el juego en modo difícil
+		}
+	}
+
+	public void iniciarJuego() {
 
 	public void iniciarJuego() {
 
@@ -141,11 +185,11 @@ public class Juego extends JPanel {
 		MapaBuilder mapaBuilder = new MapaBuilder();
 		Mapa mapa = config.configurarJuego(mapaBuilder, nivelDificultad);
 
-		personaje = new Personaje();
-		matrizMapa = mapa.getMapa();
-		mapa.mostrarMapa();
-		numeroFilas = mapa.getFilas();
-		numeroColumnas = mapa.getColumnas();
+		ventana.setSize(mapa.getFilas() * 45, mapa.getColumnas() * 45);
+		// setSize(600,600);
+		this.mapa = mapa.getMapa();
+		Juego game = new Juego(mapa);
+		ventana.add(game);
 		x = 0;
 		y = 0;
 		gameOver = false;
