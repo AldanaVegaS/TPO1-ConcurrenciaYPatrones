@@ -1,15 +1,14 @@
 package Builder;
 
 
-public class Configuracion {
-    private void nivelFacil(Builder builder){
-        builder.setTamaño(5,5);
+    public void nivelFacil(Builder builder) {
+        builder.setTamaño(10, 10);
         builder.setTesoro(1);
         builder.setObstaculos(5);
     }
 
-    private void nivelMedio(Builder builder){
-        builder.setTamaño(10,10);
+    public void nivelMedio(Builder builder) {
+        builder.setTamaño(15, 15);
         builder.setTesoro(1);
         builder.setObstaculos(5);
         builder.setVillano();

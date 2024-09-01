@@ -1,66 +1,34 @@
 package entidades;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.Random;
-import java.awt.event.KeyEvent;
-import java.util.concurrent.Executor;
+import javax.swing.JPanel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import Builder.Mapa;
-
-public class Personaje {
-    private int[][] plano;
-    private Random random = new Random();
+public class Personaje extends JPanel {
     private int x = 0;
     private int y = 0;
-    private final int ancho = 40;
-    private final int alto = 40;
-    private final int movimiento = 40;
+    private final int ANCHO = 30;
+    private final int ALTO = 30;
     private int vida = 10;
     private boolean zonaContaminada = false;
     private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
-    public Personaje(Mapa mapa) {
-        plano = mapa.getMapa();
+    public Personaje() {
         x = 0;
         y = 0;
-        System.out.println("Posicion personaje: " + x + "," + y);
+    }
+
+    public void cambiarPosición(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void paint(Graphics grafico) {
         grafico.setColor(Color.pink);
-        grafico.fillOval(x, y, ancho, alto);
-    }
-
-    public void teclaPrecionada(KeyEvent evento) {
-        switch (evento.getKeyCode()) {
-            case 37: // izquierda
-                if (x - movimiento >= 0) {
-                    x = x - movimiento;
-                }
-                break;
-            case 39: // derecha
-                if (x + movimiento <= 40) {
-                    x = x + movimiento;
-                }
-                break;
-            case 40: // abajo
-                if (y + movimiento <= 40) {
-                    y = y + movimiento;
-                }
-                break;
-            case 38: // arriba
-                if (y - movimiento >= 0) {
-                    y = y - movimiento;
-                }
-                break;
-            default:
-                break;
-        }
+        grafico.fillOval(x * 30, y * 30, ANCHO, ALTO);
     }
 
     public boolean enZonaContaminada() {
@@ -97,11 +65,11 @@ public class Personaje {
         }
     }
 
-    public boolean tieneVida() {
-        return vida > 0;
+    public int getVida() {
+        return vida;
     }
 
-    public Dimension getPosicion() {
-        return new Dimension(x / 40, y / 40);
+    public boolean tieneVida() {
+        return vida > 0;
     }
 }

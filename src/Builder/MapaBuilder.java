@@ -48,26 +48,10 @@ public class MapaBuilder implements Builder{
         }
     }
 
-    @Override
-    public void setObstaculos(int cant){
-        for(int i = 0; i<cant ; i++){
-            ubicarElemento(5);
-        }
-    }
-
-    @Override
-    public Mapa build(){
-        return (new Mapa(mapa,filas,columnas));
-    }
-
-    private void ubicarElemento(int elto){
-        int f, c;
-        //Busca una posicion que no este ocupada por otro elemento y que no sea la inicial del personaje
-        do{
-            f = random.nextInt(filas);
-            c = random.nextInt(columnas);
-        }while(mapa[f][c]!=0 && f!=0 && c!=0);
-        mapa[f][c]=elto;
-    }
-    
+			do {
+				f = random.nextInt(filas);
+				c = random.nextInt(columnas);
+			} while (mapa[f][c] != 0 && f != 0 && c != 0);
+			mapa[f][c] = elto;
+		}
 }
