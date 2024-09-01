@@ -6,13 +6,13 @@ public class Configuracion {
     }
 
     public void nivelFacil(Builder builder) {
-        builder.setTamaño(5, 5);
+        builder.setTamaño(10, 10);
         builder.setTesoro(1);
         builder.setObstaculos(5);
     }
 
     public void nivelMedio(Builder builder) {
-        builder.setTamaño(10, 10);
+        builder.setTamaño(15, 15);
         builder.setTesoro(1);
         builder.setObstaculos(5);
         builder.setVillano();

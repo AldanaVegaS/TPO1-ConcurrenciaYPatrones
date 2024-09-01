@@ -69,6 +69,4 @@ public class MapaBuilder implements Builder {
 			} while (mapa[f][c] != 0 && f != 0 && c != 0);
 			mapa[f][c] = elto;
 		}
-
-
 }
