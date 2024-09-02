@@ -212,8 +212,8 @@ public class Juego extends JPanel {
 				break;
 			case 2:
 				if (!personaje.enZonaContaminada()) {
-					personaje.entrarZonaContaminada();
-
+					personaje.entrarZonaContaminada(barraVida);
+					
 				}
 				break;
 			case 3:
