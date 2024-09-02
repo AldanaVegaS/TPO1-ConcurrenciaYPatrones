@@ -1,18 +1,16 @@
 package Builder;
 
-import java.util.Random;
-import javax.swing.JPanel;
-import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 
-public class Mapa extends JPanel{
+public class Mapa extends JPanel {
 	private int[][] mapa;
 	private int filas;
 	private int columnas;
 
-	// ###########Agregadas
-	private final int ANCHO_BLOQUE = 30,ALTO_BLOQUE = 30;
+	private final int ANCHO_BLOQUE = 30, ALTO_BLOQUE = 30;
 
 	public Mapa() {
 
@@ -22,7 +20,7 @@ public class Mapa extends JPanel{
 		this.filas = filas;
 		this.columnas = columnas;
 		this.mapa = mapa;
-		this.setPreferredSize(new Dimension((columnas)* ANCHO_BLOQUE,(filas) * ALTO_BLOQUE)); //tamaño del mapa
+		this.setPreferredSize(new Dimension((columnas) * ANCHO_BLOQUE, (filas) * ALTO_BLOQUE)); // tamaño del mapa
 	}
 
 	public int[][] getMapa() {
@@ -46,18 +44,18 @@ public class Mapa extends JPanel{
 		}
 	}
 
-	public void paintComponent(Graphics grafico){
+	public void paintComponent(Graphics grafico) {
 		super.paintComponent(grafico);
 		for (int fila = 0; fila < filas; fila++) {
 			for (int columna = 0; columna < columnas; columna++) {
 				switch (mapa[fila][columna]) {
 					case 1: // 1 = Villano
 						grafico.setColor(Color.red);
-						grafico.fillRect(columna * 30 +1, fila * 30 +1, ANCHO_BLOQUE,ALTO_BLOQUE);
+						grafico.fillRect(columna * 30 + 1, fila * 30 + 1, ANCHO_BLOQUE, ALTO_BLOQUE);
 						break;
 					case 2: // 2 = Zona contaminada
 						grafico.setColor(Color.green);
-						grafico.fillRect(columna * 30, fila * 30, ANCHO_BLOQUE,ALTO_BLOQUE);
+						grafico.fillRect(columna * 30, fila * 30, ANCHO_BLOQUE, ALTO_BLOQUE);
 						break;
 					case 3:// 3 = Pozo
 						grafico.setColor(Color.gray);
