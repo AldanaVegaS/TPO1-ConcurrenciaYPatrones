@@ -51,16 +51,16 @@ public class Juego extends JPanel {
 						if ((x - 1 >= 0) && verificarPosicion(x - 1, y)) {
 							x -= 1;
 						}
-						
+
 						break;
 					case 39: // derecha
-						if ((x + 1 <= numeroColumnas-1) && verificarPosicion(x + 1, y)) {
-							
+						if ((x + 1 <= numeroColumnas - 1) && verificarPosicion(x + 1, y)) {
+
 							x = x + 1;
 						}
 						break;
 					case 40: // abajo
-						if ((y + 1 <= numeroFilas-1) && verificarPosicion(x, y + 1)) {
+						if ((y + 1 <= numeroFilas - 1) && verificarPosicion(x, y + 1)) {
 							System.out.println(verificarPosicion(x, y + 1));
 							y = y + 1;
 						}
@@ -73,8 +73,9 @@ public class Juego extends JPanel {
 					default:
 						break;
 				}
-				
+
 				personaje.cambiarPosición(x, y);
+				System.out.println(x+" "+y);
 			}
 
 			@Override
@@ -160,20 +161,21 @@ public class Juego extends JPanel {
 		panelJuego.add(cont);
 
 		this.add(panelJuego, "Juego");
-
+		// mostrar el contenedor "Juego"
 		cardLayout.show(this, "Juego");
 		comenzo = true;
 
 	}
 
-	public boolean comenzo(){
+	public boolean comenzo() {
 		return comenzo;
 	}
 
-	public boolean termino(){
+	public boolean termino() {
 		return gameOver;
 	}
-	public boolean gano(){
+
+	public boolean gano() {
 		return tesoroEncontrado;
 	}
 
@@ -184,15 +186,8 @@ public class Juego extends JPanel {
 		// 4 = Tesoro
 		// 5 = Obstaculo, no deja pasar al personaje por esa celda, no resta puntos de
 		// vida
-		System.out.println("X: "+x+"Y:"+y);
 		boolean permitido = true;
 		int aux = matrizMapa[x][y];
-		System.out.println("verificando   "+matrizMapa[x][y]);
-		for (int i = 0; i < numeroFilas; i++) {
-			for (int j = 0; j < numeroColumnas; j++) {
-			}
-			System.out.println();
-		}
 		switch (aux) {
 			case 0:
 				if (personaje.enZonaContaminada()) {
@@ -206,12 +201,14 @@ public class Juego extends JPanel {
 					gameOver = true;
 				}
 				permitido = false;
-
+				personaje.restarVida();
+				barraVida.setValue(personaje.getVida());
 				break;
 			case 2:
 				if (!personaje.enZonaContaminada()) {
 					personaje.entrarZonaContaminada();
 				}
+
 				break;
 			case 3:
 				personaje.caerEnPozo();
@@ -219,14 +216,16 @@ public class Juego extends JPanel {
 				if (!personaje.tieneVida()) {
 					gameOver = true;
 				}
-				personaje.repaint();
+				this.x = 0;
+				this.y = 0;
+				permitido = false;
 				break;
 			case 4:
 				tesoroEncontrado = true;
 				gameOver = true;
 				break;
 			case 5:
-			
+
 				permitido = false;
 				break;
 

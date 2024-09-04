@@ -25,16 +25,29 @@ public class Test {
             if (game.comenzo()) {
                 ventana.pack();
                 game.repaint();
-                if(game.termino()){
-                    if(game.gano()){
+                if (game.termino()) {
+                    int response;
+                    if (game.gano()) {
 
-                        JOptionPane.showMessageDialog(null, "Felicidades, ganaste la partida!", "GameOver", JOptionPane.INFORMATION_MESSAGE);
+                        response = JOptionPane.showOptionDialog(null, "Felicidades, ganaste la partida!", "GameOver",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                new Object[] { "Salir" },
+                                "Salir");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Perdiste :(", "GameOver", JOptionPane.INFORMATION_MESSAGE);
-    
+                        response = JOptionPane.showOptionDialog(null, "Perdiste :(", "GameOver",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                new Object[] { "Salir" },
+                                "Salir");
                     }
-                    executor.shutdown();
-                    
+                    if (response == JOptionPane.OK_OPTION) {
+                        // Realiza la operación deseada
+                        ventana.setVisible(false);
+                        executor.shutdown();
+                    } 
                 }
             }
         }, 1, 10, TimeUnit.MILLISECONDS);

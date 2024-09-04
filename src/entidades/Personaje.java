@@ -24,6 +24,7 @@ public class Personaje extends JPanel {
     public void cambiarPosición(int x, int y) {
         this.x = x;
         this.y = y;
+        this.repaint();
     }
 
     public void paint(Graphics grafico) {
