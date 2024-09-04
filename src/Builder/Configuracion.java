@@ -29,16 +29,16 @@ public class Configuracion {
     }
 
     public Mapa configurarjuego(MapaBuilder builder, Nivel dificultad) {
-        
+
         switch (dificultad) {
             case FACIL:
                 this.nivelFacil(builder);
                 break;
             case MEDIO:
-            this.nivelMedio(builder);
+                this.nivelMedio(builder);
                 break;
             case DIFICIL:
-            this.nivelDificil(builder);
+                this.nivelDificil(builder);
                 break;
             default:
                 break;

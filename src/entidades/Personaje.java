@@ -2,10 +2,11 @@ package entidades;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.JPanel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 public class Personaje extends JPanel {
     private int x = 0;
@@ -36,10 +37,11 @@ public class Personaje extends JPanel {
         return zonaContaminada;
     }
 
-    public void entrarZonaContaminada() {
+    public void entrarZonaContaminada(JProgressBar barraVida) {
         executor.scheduleAtFixedRate(() -> {
             zonaContaminada = true;
-            vida--;
+            restarVida();
+            barraVida.setValue(vida);
             System.out.println("Vida restante:" + vida);
         }, 1, 1, TimeUnit.SECONDS);
     }
@@ -48,7 +50,7 @@ public class Personaje extends JPanel {
         System.out.println("Salir de la zona contaminada");
         zonaContaminada = false;
         executor.shutdown();
-        executor = null;
+        executor = Executors.newSingleThreadScheduledExecutor();
 
     }
 

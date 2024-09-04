@@ -7,8 +7,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-//import java.awt.BorderLayout;
-
 public class Test {
 
     public static void main(String[] args) {
@@ -26,28 +24,15 @@ public class Test {
                 ventana.pack();
                 game.repaint();
                 if (game.termino()) {
-                    int response;
                     if (game.gano()) {
 
-                        response = JOptionPane.showOptionDialog(null, "Felicidades, ganaste la partida!", "GameOver",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE,
-                                null,
-                                new Object[] { "Salir" },
-                                "Salir");
+                        JOptionPane.showMessageDialog(null, "Felicidades, ganaste la partida!", "GameOver",
+                                JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        response = JOptionPane.showOptionDialog(null, "Perdiste :(", "GameOver",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.INFORMATION_MESSAGE,
-                                null,
-                                new Object[] { "Salir" },
-                                "Salir");
+                        JOptionPane.showMessageDialog(null, "Perdiste :(", "GameOver", JOptionPane.INFORMATION_MESSAGE);
+
                     }
-                    if (response == JOptionPane.OK_OPTION) {
-                        // Realiza la operación deseada
-                        ventana.setVisible(false);
-                        executor.shutdown();
-                    } 
+                    executor.shutdown();
                 }
             }
         }, 1, 10, TimeUnit.MILLISECONDS);
