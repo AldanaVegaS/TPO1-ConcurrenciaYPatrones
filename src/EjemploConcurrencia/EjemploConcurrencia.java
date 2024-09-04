@@ -12,11 +12,16 @@ public class EjemploConcurrencia {
 		CuentaBancaria cuenta = new CuentaBancaria(5000);
 
 		Runnable task1 = () -> {
-			cuenta.realizarTransferencia(500, Thread.currentThread().getName());
+			int transferir = (int) ( (Math.random())*30) +1 )*1000;
+			System.out.println("Transferir "+transferir);
+
+			cuenta.realizarTransferencia(transferir, Thread.currentThread().getName());
 		};
 
 		Runnable task2 = () -> {
-			cuenta.depositar(500, Thread.currentThread().getName());
+			int depositar = (int) ( (Math.random())*20) +1 )*1000;
+			System.out.println("Depositar "+depositar);
+			cuenta.depositar(depositar, Thread.currentThread().getName());
 		};
 
 		executorTransferencias.scheduleAtFixedRate(task1, 1, 2, TimeUnit.SECONDS);
