@@ -224,6 +224,7 @@ public class Juego extends JPanel {
 				}
 				this.x = 0;
 				this.y = 0;
+				permitido=false;
 				break;
 			case 4:
 				tesoroEncontrado = true;

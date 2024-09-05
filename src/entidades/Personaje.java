@@ -27,6 +27,7 @@ public class Personaje extends JPanel {
         this.y = y;
     }
 
+    @Override
     public void paint(Graphics grafico) {
         grafico.setColor(Color.pink);
         grafico.fillOval(x * 30, y * 30, ANCHO, ALTO);

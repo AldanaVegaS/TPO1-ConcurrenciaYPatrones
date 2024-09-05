@@ -44,6 +44,7 @@ public class Mapa extends JPanel {
 		}
 	}
 
+    @Override
 	public void paintComponent(Graphics grafico) {
 		super.paintComponent(grafico);
 		for (int fila = 0; fila < filas; fila++) {
