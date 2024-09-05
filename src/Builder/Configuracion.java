@@ -5,13 +5,13 @@ public class Configuracion {
     public Configuracion() {
     }
 
-    public void nivelFacil(Builder builder) {
+    private void nivelFacil(Builder builder) {
         builder.setTamaño(10, 10);
         builder.setTesoro(1);
         builder.setObstaculos(5);
     }
 
-    public void nivelMedio(Builder builder) {
+    private void nivelMedio(Builder builder) {
         builder.setTamaño(15, 15);
         builder.setTesoro(1);
         builder.setObstaculos(5);
@@ -19,7 +19,7 @@ public class Configuracion {
         builder.setPozos(2);
     }
 
-    public void nivelDificil(Builder builder) {
+    private void nivelDificil(Builder builder) {
         builder.setTamaño(20, 20);
         builder.setTesoro(1);
         builder.setObstaculos(5);
