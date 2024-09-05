@@ -8,19 +8,21 @@ public class EjemploConcurrencia {
 	public static void main(String[] args) {
 
 		ScheduledExecutorService executorTransferencias = Executors.newScheduledThreadPool(2);
-		ScheduledExecutorService executorDepositos = Executors.newScheduledThreadPool(3);
+		ScheduledExecutorService executorDepositos = Executors.newScheduledThreadPool(6);
 		CuentaBancaria cuenta = new CuentaBancaria(5000);
 
 		Runnable task1 = () -> {
-			cuenta.realizarTransferencia(500, Thread.currentThread().getName());
+			int aux = (int) ((Math.random() * 30) + 1) * 1000;
+			cuenta.realizarTransferencia(aux, Thread.currentThread().getName());
 		};
 
 		Runnable task2 = () -> {
-			cuenta.depositar(500, Thread.currentThread().getName());
+			int aux = (int) ((Math.random() * 30) + 1) * 1000;
+			cuenta.depositar(aux, Thread.currentThread().getName());
 		};
 
-		executorTransferencias.scheduleAtFixedRate(task1, 1, 2, TimeUnit.SECONDS);
-		executorDepositos.scheduleAtFixedRate(task2, 1, 2, TimeUnit.SECONDS);
+		executorTransferencias.scheduleAtFixedRate(task1, 300, 500, TimeUnit.MILLISECONDS);
+		executorDepositos.scheduleAtFixedRate(task2, 300, 500, TimeUnit.MILLISECONDS);
 
 		executorTransferencias.schedule(() -> {
 			executorTransferencias.shutdown();

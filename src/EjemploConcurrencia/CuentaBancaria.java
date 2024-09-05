@@ -14,11 +14,11 @@ public class CuentaBancaria {
 	public synchronized void realizarTransferencia(int montoATransferir, String nombre) {
 		String aux="Hilo - "+nombre+"\n";
 		if(montoATransferir<= montoActual) {
-		aux = "Monto antes de realizar transferencia: "+montoActual+"\n";
+		aux += "Monto antes de realizar transferencia: "+montoActual+"\n";
 		montoActual-= montoATransferir;
 		aux+= "Monto luego de realizar transferencia: " + montoActual;
 	}else {
-		aux="Dinero insuficiente. No se pudo realizar la transferencia";
+		aux+="Dinero insuficiente. No se pudo realizar la transferencia";
 	}
 		System.out.println(aux);
 	}
